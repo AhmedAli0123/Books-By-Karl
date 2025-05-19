@@ -1,0 +1,125 @@
+{
+    "books": [
+      {
+        "name": "Living the Dreams: A Journey to Success and Fulfillment. Make Your Dreams a Reality",
+        "slug": "living-the-dreams",
+        "author": "Karl Nystrom",
+        "formatsAvailable": ["Ebook", "Paperback", "Hardcover"],
+        "image":"/books/book1.jpg",
+        "publishedDate": "2025-04-08",
+        "bookLink": "https://www.amazon.com/Living-Dreams-Journey-Success-Fulfillment/dp/196619871X/ref=sr_1_1?crid=2V01HC8S305MJ&dib=eyJ2IjoiMSJ9.TO9WiPPo_z4uC5L2d9tvIzE1CeB8BLT2O5tiM9IqbVwGx3CVF8ikq1HyvKchqcppES1ziIOAGXqi38e1pScPJMBjZ6RRFqisFrIhoYpshCEOKFCtVv3BbAoveTUOcq4LygGUUyYE4MxFP9J0oI4KnBrlToAZHItMm0AqFOcNu31v3iNztYmJwb-SSZdEU_gn0aofVJql17KHzv8FJ3LexOdU4mLR3G5DAmHZRuzyX0M.hBjlF6qMEEbr-ChBU66ez89gge1vfeaQRXVQP3CTmo8&dib_tag=se&keywords=karl+nystrom&qid=1747475863&sprefix=%2Caps%2C485&sr=8-1",
+        "description": "Meet Karl Nystrom, a seasoned entrepreneur and author with a life story that reads like a thrilling adventure novel. His memoir, Living the Dreams, is a true account of his journey from day one to the present, packed with lessons learned and wisdom gained.\n\nWith a diverse career spanning the automotive and real estate industries. Karl has also held key positions in various companies, including Director and Secretary for a prominent English firm, CEO in Hong Kong for electronics export, and hotel owner. His entrepreneurial spirit has led him to explore multiple ventures, from constructing hotels in the Philippines to importing products for renewable energy.\n\nAs an Author, Karl's writing spans multiple genres, including motorcycles, cars, cyber-crimes and food. With many more books in the pipeline, his readers can expect a wide range of topics and inspiration.\n\nKarl's story is a testament to the power of determination, hard work, and a passion for living the life to fullest. Through his writing, he aims to inspire and motivate others to chase their dreams and never give up.",
+        "readSample": {
+          "chapter": "Chapter 1",
+          "title": "Introduction Of My Family Period",
+          "years": "1954-1980",
+          "content": "On the crisp autumn day of October 8, 1954, I entered the world in the heart of Turku, a city that would forever be etched in my memories. The Heideken hospital, where I drew my first breath, was more than a mere birthplace. It symbolized my beginnings, a place that would always hold a special place in my heart.\n\nWe lived in a small town called Parainen, which had little to discuss at the time..."
+        }
+      },
+      {
+        "name": "DREAM LIFE ON A REMOTE ISLAND: LIVING THE LIFE",
+        "slug": "dream-life-on-remote-island",
+        "author": "Karl Nystrom",
+        "formatsAvailable": ["Ebook", "Paperback", "Hardcover"],
+        "image":"/books/book2.jpg",
+        "publishedDate": "2025-02-22",
+        "bookLink":"https://www.amazon.com/DREAM-LIFE-REMOTE-ISLAND-LIVING-ebook/dp/B0DY63SGX7/ref=sr_1_3?crid=2V01HC8S305MJ&dib=eyJ2IjoiMSJ9.TO9WiPPo_z4uC5L2d9tvIzE1CeB8BLT2O5tiM9IqbVwGx3CVF8ikq1HyvKchqcppES1ziIOAGXqi38e1pScPJMBjZ6RRFqisFrIhoYpshCEOKFCtVv3BbAoveTUOcq4LygGUUyYE4MxFP9J0oI4KnBrlToAZHItMm0AqFOcNu31v3iNztYmJwb-SSZdEU_gn0aofVJql17KHzv8FJ3LexOdU4mLR3G5DAmHZRuzyX0M.hBjlF6qMEEbr-ChBU66ez89gge1vfeaQRXVQP3CTmo8&dib_tag=se&keywords=karl+nystrom&qid=1747475863&sprefix=%2Caps%2C485&sr=8-3",
+        "description": "LEAVE BEHIND THE STRESSES OF MODERN LIFE AND ADOPT A SIMPLER MORE PEACEFUL WAY OF LIVING.\nLIVING ON A REMOTE ISLAND OFFERS A UNIQUE OPPORTUNITY TO RECONNECT WITH THE NATURAL WORLD.\nESCAPE THE CHAOS OF CITY LIFE AND FIND SERENITY ON A REMOTE ISLAND. LIVING ON A REMOTE ISLAND OFFERS A UNIQUE OPPORTUNITY TO RECONNECT WITH THE NATURAL WORLD. WITH THE PRESSURES OF MODERN SOCIETY REMOVED, YOU WILL HAVE THE FREEDOM TO PURSUE YOUR PASSIONS AND INTERESTS WITHOUT CONSTRAINT.\nTHE AUTHOR AND WIFE HAVE 16 YEARS OF EXPERIENCE TO LIVE ON A REMOTE ISLAND IN THE PACIFIC.",
+        "readSample": {
+          "chapter": "Chapter 1",
+          "title": "Introduction to Island Living",
+          "content": "The allure of remote islands captivates the hearts of those seeking adventure, freedom, and a deeper connection with nature. These secluded paradises offer an escape from the chaos of modern life, drawing digital nomads and self-sufficient individuals eager to craft their dream existence...\n\nUltimately, the allure of remote islands lies in their ability to empower individuals to redefine their lives. The combination of adventure, sustainable living, and the freedom to work from anywhere creates a unique lifestyle that attracts those yearning for change..."
+        }
+      },
+      {
+        "name": "Finding Hope : A Family's Journey with Parkinson's Disease: Life Coaching",
+        "slug": "finding-hope-parkinsons-disease",
+        "author": "Karl Nystrom",
+        "formatsAvailable": ["Ebook", "Paperback", "Hardcover"],
+        "image":"/books/book3.jpg",
+        "publishedDate": "February 21, 2025",
+        "bookLink": "https://www.amazon.com/Finding-Hope-Familys-Parkinsons-Coaching-ebook/dp/B0DY5FVT59",
+        "description": "This book provides guidance on the challenges of caring for someone with Parkinson's disease, a debilitating illness that can affect anyone without warning. These pages explain various ways to support loved ones living with Parkinson's. The most crucial aspect is understanding the patient and helping to make their lives more manageable. Patients may endure their struggles for years and often don't openly discuss what they're going through. Many symptoms are associated with the disease, and seeking early help can significantly ease the journey.",
+        "readSample": {
+          "chapter":"Chapter 1",
+          "title": "Understanding Parkinson's Disease",
+          "content": "Parkinson's Disease is a progressive neurodegenerative disorder that primarily affects movement. It occurs when nerve cells in the brain that produce dopamine—an essential neurotransmitter responsible for coordinating smooth and controlled muscle movements—begin to die. This loss of dopamine leads to a variety of motor symptoms, including tremors, stiffness, slowness of movement, and balance problems. While the exact cause of Parkinson's remains unknown, a combination of genetic and environmental factors is believed to play a role in its development.\n\nThe symptoms of Parkinson's Disease can vary widely from person to person, which makes it a particularly challenging condition to manage. Beyond the physical symptoms, many individuals experience non-motor symptoms such as depression, anxiety, cognitive changes, sleep disturbances, and fatigue. Diagnosis is based on medical history and neurological exams. Early diagnosis helps with planning, and a comprehensive treatment approach involving medications and therapies is encouraged.\n\nIt is vital for families to understand the importance of their own mental health. Establishing a support network can be invaluable. Ultimately, finding hope in the journey with Parkinson's involves recognizing the resilience within families and the strength of their bonds."
+        }
+      },
+      {
+        "name": "How to build a Harley chopper",
+        "slug": "how-to-build-harley-chopper",
+        "author": "Karl Nystrom",
+        "formatsAvailable": ["Ebook", "Paperback", "Hardcover"],
+        "image":"/books/book4.jpg",
+        "publishedDate": "February 20, 2025",
+         "bookLink": "https://www.amazon.com/How-build-Harley-chopper-ebook/dp/B0DXZVGW69",
+        "description": "Transform your dream into reality by building your own custom bike. You'll have the opportunity to make new friends, share ideas, and enhance your enjoyment of life. Take scenic rides in the countryside and meet fellow bikers along the way. Attend bike shows and swap meets across the country. You might even turn this passion into a business, allowing you to generate income while enjoying life to the fullest.\n\nLive to ride and ride to live.",
+        "readSample": {
+          "chapter":"Chapter 1",
+          "title": "The Birth of the Chopper Culture",
+          "content": "The origins of chopper bikes can be traced back to the post-World War II era in the United States. Returning veterans sought freedom and expression, turning to motorcycles, especially Harley-Davidsons. They began customizing their bikes by removing parts to enhance performance, birthing the term \"chopper.\"\n\nChopper culture exploded in the 1960s, thanks to counterculture movements and movies like \"Easy Rider.\" DIY garage builds, extended forks, and custom aesthetics became iconic. Innovations in fabrication and painting helped evolve the scene. The community thrived on creativity, personal expression, and shared passion for the open road."
+        }
+      },
+      {
+        "name": "AMERICAN MUSCLE CARS: DREAMING TO OWN A AMERICAN MUSCLE CAR",
+        "slug": "american-muscle-cars",
+        "author": "Karl Nystrom",
+        "formatsAvailable": ["Ebook", "Paperback", "Hardcover"],
+        "image":"/books/book5.jpg",
+        "publishedDate": "March 24, 2025",
+        "bookLink": "https://www.amazon.com/AMERICAN-MUSCLE-CARS-DREAMING-OWN-ebook/dp/B0F2FF54QR/ref=sr_1_6?crid=2V01HC8S305MJ&dib=eyJ2IjoiMSJ9.TO9WiPPo_z4uC5L2d9tvIzE1CeB8BLT2O5tiM9IqbVwGx3CVF8ikq1HyvKchqcppES1ziIOAGXqi38e1pScPJMBjZ6RRFqisFrIhoYpshCEOKFCtVv3BbAoveTUOcq4LygGUUyYE4MxFP9J0oI4KnBrlToAZHItMm0AqFOcNu31v3iNztYmJwb-SSZdEU_gn0aofVJql17KHzv8FJ3LexOdU4mLR3G5DAmHZRuzyX0M.hBjlF6qMEEbr-ChBU66ez89gge1vfeaQRXVQP3CTmo8&dib_tag=se&keywords=karl+nystrom&qid=1747475863&sprefix=%2Caps%2C485&sr=8-6",
+        "description": "The 1960s was a transformative period for American Muscle Cars, marked by innovation, experimentation, and focus on performance. Features such as fastback and coupe designs, V-8 engines, rear-wheel drive, and sport-tuned suspensions were standard. The market declined in the mid-1970s due to fuel prices and regulations, but saw a revival in the 2000s with modern takes on classic models featuring improved technology and performance.",
+        "sample": {
+          "chapter":"Chapter 1",
+          "title": "The Origins of Muscle Cars",
+          "content": "Muscle cars originated post-World War II, as American prosperity grew. The 1949 Oldsmobile Rocket 88 is often called the first muscle car. By the 1960s, manufacturers embraced the trend—cars like the Pontiac GTO, Ford Mustang, and Chevrolet Camaro brought powerful V8 engines in sleek, affordable designs to the masses.\n\nYouth culture, motorsports, and the thrill of speed fueled the craze. These cars symbolized independence, performance, and identity, leading to one of the most iconic eras in automotive history."
+        }
+      },
+      {
+        "name": "Crystal The Dog King",
+        "slug": "crystal-the-dog-king",
+        "author": "Karl Nystrom",
+        "formatsAvailable": ["Ebook", "Paperback", "Hardcover"],
+        "image":"/books/book7.jpg",
+        "publishedDate": "February 21, 2025",
+        "bookLink": "https://www.amazon.com/Crystal-King-KARL-ERIK-NYSTROM-ebook/dp/B0DY51YV3V/",
+        "description": "The short book is about a dog that was adopted from the street and how his life changed with his new family on a remote island in the Pacific Ocean, in the Philippines. This tiny little dog, affectionately called \"Meatball,\" took charge of the entire island. Today, the island has a unique mix of dogs that resemble him. Enjoy the short story of the hero, Crystal. He got his name from the hotel he looks after. Today, he lives with a cat named Princess and is surrounded by birds in his area.",
+        "sample": {
+          "chapter": "Chapter 1",
+          "title": "My Early Days of Life",
+          "content": "I was born on the streets of Allen town in the province of Northern Samar almost seventy dog years ago. The year was November 2013, with heavy rain and winds that day. I had many siblings in the rest days. But some of them died, and some they killed for no reason.\n\nI do not even know what my siblings look like because I was born blind. It was terrifying because you did not understand what was happening around you. Slowly, I could open my eyes, and I started looking around my home.\n\nThe surroundings were terrible, with traffic, pollution, and noise. I was so scared of the natural world that I stayed close to my mom's warm body. My mother was very skinny, and I knew she couldn't take it with all my siblings for a very long time."
+        }
+      },
+      {
+        "name": "The Small Business Cyber Security Playbook",
+        "slug": "small-business-cyber-security-playbook",
+        "authors": ["Maria Nystrom", "Karl Nystrom"],
+        "formatsAvailable": ["Ebook", "Paperback", "Hardcover"],
+        "publishedDate": "February 21, 2025",
+        "image":"/books/book7.jpg",
+        "description": "Today's world is very different compared to ten years ago. We face issues like credit card fraud, theft of important information, and even breaches of military secrets. This book aims to help people prevent cyber attacks. There are many small steps we can take to protect ourselves from these scams, even if we have no prior knowledge. By implementing simple measures, we can enhance our internet safety. Read on to learn how to keep your online presence secure.",
+        "sample": {
+            "title": "The Importance of Cybersecurity for Small Businesses",
+            "content": "Cybersecurity is often perceived as a concern primarily for large corporations, but small businesses are equally vulnerable to cyber threats. In fact, small businesses frequently become targets for cybercriminals due to their perceived lack of security resources. These attacks can lead to devastating consequences, including data breaches, financial loss, and damage to reputation. Understanding the importance of cybersecurity is crucial for small business owners to protect their assets and maintain customer trust.\n\nSmall businesses are repositories of sensitive information, such as customer data, financial records, and proprietary business strategies..."
+        },
+        "bookLink": "https://www.amazon.com/small-business-cyber-security-playbook-ebook/dp/B0DY55FGVH"
+      },    
+      {
+        "name": "FIVE STAR HOME COOKING: HOME COOKING CHEF",
+        "slug": "five-star-home-cooking",
+        "author": "Karl Nystrom",
+        "formatsAvailable": ["Ebook", "Paperback", "Hardcover"],
+        "image":"/books/book8.jpg",
+        "publishedDate": "February 22, 2025",
+        "description": "Savoring the taste of home, perfected. Elevated comfort food, crafted with Love...",
+        "sample": {
+            "chapter": "Chapter 1",
+            "title": "Introduction to Home Cooking",
+            "content": "The act of cooking at home transcends mere sustenance; it is an opportunity to create cherished memories..."
+        },
+        "bookLink": "https://www.amazon.com/FIVE-STAR-HOME-COOKING-CHEF-ebook/dp/B0DY5WNJG6"
+      }
+    ]
+}
+  
