@@ -21,7 +21,7 @@ export default function AuthorSection() {
         {/* Author Image */}
         <div className=" md:w-1/3 flex justify-center h-[412px] w-[275px]">
           <Image
-            src="/author.jpg"
+            src="/authors/author.jpg"
             alt="Karl Nystrom"
             width={275}
             height={412}
