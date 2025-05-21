@@ -55,7 +55,7 @@ const BookSection = () => {
             energy.\n\nAs an Author, Karl&apos;s writing spans multiple genres,
             including motorcycles, cars, cyber-crimes and food. With many more
             books in the pipeline, his readers can expect a wide range of topics
-            and inspiration.\n\nKarl's story is a testament to the power of
+            and inspiration.\n\nKarl&apos;s story is a testament to the power of
             determination, hard work, and a passion for living the life to
             fullest. Through his writing, he aims to inspire and motivate others
             to chase their dreams and never give up.

@@ -11,7 +11,7 @@ const config: Config = {
   	extend: {
   		fontFamily: {
   			greatvibes: [
-  				'Great Vibes"',
+  				'Great Vibes',
   				'cursive'
   			]
   		},

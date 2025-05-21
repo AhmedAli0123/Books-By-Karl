@@ -17,7 +17,7 @@ function Footer() {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div className="text-gray-500 dark:text-gray-400 font-medium">
-                  <Link href={"/the-author"} className="mb-4">The Author</ Link>
+                  <Link href={"/the-author"} className="mb-4">The Author</Link>
                   <ul >
                       <li className="my-4">
                           <Link href="/news" className="hover:underline">News</Link>

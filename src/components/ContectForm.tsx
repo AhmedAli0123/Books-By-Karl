@@ -102,7 +102,7 @@ export default function ContactPage() {
       <div className="max-w-6xl w-full p-8 rounded-lg shadow-lg flex flex-col md:flex-row items-center gap-8 ">
         <div className="md:w-1/2 text-center md:text-left">
           <h2 className="text-4xl md:text-5xl font-bold font-Spectral text-slate-200 leading-tight">
-            Get all the latest Karl's news and info sent to your inbox!
+            Get all the latest Karl&apos;s news and info sent to your inbox!
           </h2>
           <p className="mt-4 text-slate-50 text-lg">
             Stay updated with exclusive content, new releases, and special announcements.
