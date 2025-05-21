@@ -7,12 +7,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 const links = [
-  "Work",
-  "Upcoming",
+  "Books",
   "The Author",
   "News",
   "FAQ",
-  "The Dark Tower"
+  "Contact"
 ]
 
 export default function Navbar() {

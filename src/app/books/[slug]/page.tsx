@@ -47,7 +47,7 @@ export default function BookDetail() {
 
           {(book.sample || book.readSample) && (
           <div>
-            <h2 className="text-2xl font-bold text-white mb-2">Read a Sample</h2>
+            <h2 className="text-2xl font-bold text-white mb-2">About the Book</h2>
             <h3 className="text-lg text-gray-200 mb-1">{(book.sample || book.readSample)?.title}</h3>
             <p className="text-gray-400 leading-relaxed">
               {(book.sample || book.readSample)?.content}
@@ -71,7 +71,7 @@ export default function BookDetail() {
       {/* Book Content Section */}
       <div className="mt-12 max-w-5xl mx-auto space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-white mb-2">About the Book</h2>
+          <h2 className="text-2xl font-bold text-white mb-2">Read Sample</h2>
           <p className="text-gray-300 leading-relaxed">{book.description}</p>
         </div>
 
