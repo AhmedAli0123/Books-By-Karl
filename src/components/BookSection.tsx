@@ -6,7 +6,7 @@ const BookSection = () => {
   return (
     <section 
     style={{ 
-      backgroundImage: "url('/forest-background.jpg')",
+      backgroundImage: "url('/forest-bacground.jpg')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat'

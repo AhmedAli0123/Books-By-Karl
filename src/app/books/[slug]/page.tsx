@@ -1,17 +1,64 @@
 "use client"
-import Books from "@/data/Books.json";
 import { Book } from "@/type/Book";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import Image from "next/image";
+import { client } from "@/sanity/lib/client";
+import { groq } from "next-sanity";
+import { useEffect, useState } from "react";
+import { PortableText } from '@portabletext/react';
+import imageUrlBuilder from '@sanity/image-url';
+
+// Initialize the image URL builder
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: any) {
+  return builder.image(source);
+}
+
+// Sanity query to fetch a single book by slug
+const bookQuery = groq`*[_type == "book" && slug.current == $slug][0] {
+  _id,
+  name,
+  slug,
+  formatsAvailable,
+  publishedDate,
+  author,
+  image,
+  bookLink,
+  description,
+  readSample,
+  sample
+}`;
 
 export default function BookDetail() {
   const params = useParams();
   const slug = params.slug as string;
+  const [book, setBook] = useState<Book | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const book = Books.books.find((b: Book) => b.slug === slug);
+  useEffect(() => {
+    const fetchBook = async () => {
+      try {
+        const data = await client.fetch(bookQuery, { slug });
+        setBook(data);
+      } catch (err) {
+        setError('Failed to fetch book details');
+        console.error('Error fetching book:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  if (!book) {
+    fetchBook();
+  }, [slug]);
+
+  if (isLoading) {
+    return <p className="text-center text-gray-200 mt-10 text-xl">Loading...</p>;
+  }
+
+  if (error || !book) {
     return <p className="text-center text-red-500 mt-10 text-xl">Book not found</p>;
   }
 
@@ -23,7 +70,7 @@ export default function BookDetail() {
         {book.image && (
           <div className="w-full md:w-[300px] h-[400px] relative">
             <Image
-              src={book.image}
+              src={urlFor(book.image).url()}
               alt={book.name}
               fill
               className="object-cover rounded-lg shadow-lg"
@@ -37,7 +84,7 @@ export default function BookDetail() {
 
           <div className="mb-3">
             <h2 className="text-lg font-semibold text-gray-300">Published Date:</h2>
-            <p className="text-gray-400">{book.publishedDate}</p>
+            <p className="text-gray-400">{new Date(book.publishedDate).toLocaleDateString()}</p>
           </div>
 
           <div className="mb-3">
@@ -46,14 +93,14 @@ export default function BookDetail() {
           </div>
 
           {(book.sample || book.readSample) && (
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-2">About the Book</h2>
-            <h3 className="text-lg text-gray-200 mb-1">{(book.sample || book.readSample)?.title}</h3>
-            <p className="text-gray-400 leading-relaxed">
-              {(book.sample || book.readSample)?.content}
-            </p>
-          </div>
-        )}
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-2">About the Book</h2>
+              <h3 className="text-lg text-gray-200 mb-1">{(book.sample || book.readSample)?.title}</h3>
+              <div className="text-gray-400 leading-relaxed">
+                <PortableText value={(book.sample || book.readSample)?.content || []} />
+              </div>
+            </div>
+          )}
 
           <div className="mt-6">
             <Link
@@ -72,10 +119,10 @@ export default function BookDetail() {
       <div className="mt-12 max-w-5xl mx-auto space-y-6">
         <div>
           <h2 className="text-2xl font-bold text-white mb-2">Read Sample</h2>
-          <p className="text-gray-300 leading-relaxed">{book.description}</p>
+          <div className="text-gray-300 leading-relaxed">
+            <PortableText value={book.description} />
+          </div>
         </div>
-
-        
       </div>
     </section>
   );

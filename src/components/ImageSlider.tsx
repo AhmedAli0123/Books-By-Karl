@@ -8,13 +8,26 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import Image from "next/image"
+import Autoplay from "embla-carousel-autoplay"
 
-const images = ["/banner/banner2.jpg", "/banner/banner1.jpg"]
+const images = ["/banner/banner1.jpg", "/banner/banner2.jpg", "/banner/banner3.jpg", "/banner/banner4.jpg"]
 
 const HeroCarousel = () => {
   return (
     <div className="max-w-6xl mx-auto pt-5 md:px-4 py-3">
-      <Carousel className="relative w-full">
+      <Carousel 
+        className="relative w-full"
+        opts={{
+          loop: true,
+          align: "start",
+        }}
+        plugins={[
+          Autoplay({
+            delay: 3000,
+            stopOnInteraction: false,
+          }),
+        ]}
+      >
         <CarouselContent>
           {images.map((src, index) => (
             <CarouselItem
@@ -23,6 +36,7 @@ const HeroCarousel = () => {
             >
               <div className="relative w-full h-[200px]  md:h-[400px] lg:h-[500px]">
                 <Image
+                
                   src={src}
                   alt={`Banner ${index + 1}`}
                   fill

@@ -8,10 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Books from "@/data/Books.json";
 import { Book } from "@/type/Book";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -19,11 +18,43 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { client } from "@/sanity/lib/client";
+import { groq } from "next-sanity";
+
+// Sanity query to fetch books
+const booksQuery = groq`*[_type == "book"] | order(name asc) {
+  _id,
+  name,
+  slug,
+  formatsAvailable,
+  publishedDate,
+  author,
+  image
+}`;
 
 export default function BooksTable() {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [books, setBooks] = useState<Book[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const sortedBooks = [...Books.books].sort((a, b) => {
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const data = await client.fetch(booksQuery);
+        setBooks(data);
+      } catch (err) {
+        setError('Failed to fetch books');
+        console.error('Error fetching books:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
+  const sortedBooks = [...books].sort((a, b) => {
     if (sortOrder === 'asc') {
       return a.name.localeCompare(b.name);
     } else {
@@ -34,6 +65,26 @@ export default function BooksTable() {
   const handleSortChange = (value: string) => {
     setSortOrder(value as 'asc' | 'desc');
   };
+
+  if (isLoading) {
+    return (
+      <section className="bg-[#252231] py-6">
+        <div className="w-full max-w-4xl mx-auto p-4">
+          <div className="text-center text-gray-200">Loading books...</div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="bg-[#252231] py-6">
+        <div className="w-full max-w-4xl mx-auto p-4">
+          <div className="text-center text-red-500">{error}</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-[#252231] py-6">
@@ -68,13 +119,15 @@ export default function BooksTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sortedBooks.map((book: Book, index: number) => (
-                <TableRow key={index}>
+              {sortedBooks.map((book: Book) => (
+                <TableRow key={book._id}>
                   <TableCell className="font-medium text-gray-300">
-                    <Link href={`/books/${book.slug}`} className="hover:underline">{book.name}</Link>
+                    <Link href={`/books/${book.slug.current}`} className="hover:underline">{book.name}</Link>
                   </TableCell>
                   <TableCell className="text-gray-300">{book.formatsAvailable.join(", ")}</TableCell>
-                  <TableCell className="text-gray-600">{book.publishedDate}</TableCell>
+                  <TableCell className="text-gray-600">
+                    {new Date(book.publishedDate).toLocaleDateString()}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
