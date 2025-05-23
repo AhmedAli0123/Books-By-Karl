@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Book } from "@/type/Book";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import {
   Select,
   SelectContent,
@@ -33,7 +33,7 @@ const booksQuery = groq`*[_type == "book"] | order(name asc) {
   image
 }`;
 
-export default function BooksTable() {
+function BooksTableContent() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('search') || '';
   
@@ -144,5 +144,17 @@ export default function BooksTable() {
         )}
       </div>
     </section>
+  );
+}
+
+export default function BooksTable() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center text-[#d3e9d1] text-lg">Loading...</div>
+      </div>
+    }>
+      <BooksTableContent />
+    </Suspense>
   );
 }

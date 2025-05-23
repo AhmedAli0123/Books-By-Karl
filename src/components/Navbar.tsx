@@ -5,7 +5,7 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
 import { Menu, Search, Clock, Book } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { client } from "@/sanity/lib/client"
 import { groq } from "next-sanity"
@@ -24,7 +24,8 @@ const booksQuery = groq`*[_type == "book"] {
   slug
 }`
 
-export default function Navbar() {
+// Separate component for search functionality
+function SearchBar() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [searchValue, setSearchValue] = useState("")
@@ -55,7 +56,7 @@ export default function Navbar() {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setShowSuggestions(false)
-      }
+      } 
     }
 
     document.addEventListener('mousedown', handleClickOutside)
@@ -84,19 +85,75 @@ export default function Navbar() {
     
     router.push(`/books?search=${encodeURIComponent(search)}`)
     setShowSuggestions(false)
-    setSearchValue('') // Reset search value
+    setSearchValue('')
   }
 
   const handleSuggestionClick = (suggestion: string) => {
     router.push(`/books?search=${encodeURIComponent(suggestion)}`)
     setShowSuggestions(false)
-    setSearchValue('') // Reset search value
+    setSearchValue('')
   }
 
   const filteredSuggestions = suggestions.filter(book =>
     book.name.toLowerCase().includes(searchValue.toLowerCase())
   ).slice(0, 3)
 
+  return (
+    <div className="relative" ref={searchRef}>
+      <form onSubmit={handleSearch}>
+        <Input
+          name="search"
+          placeholder="Search books..."
+          value={searchValue}
+          onChange={(e) => {
+            setSearchValue(e.target.value)
+            setShowSuggestions(true)
+          }}
+          onFocus={() => setShowSuggestions(true)}
+          className="h-9 bg-background"
+        />
+      </form>
+      
+      {/* Suggestions Dropdown */}
+      {showSuggestions && (searchValue || recentSearches.length > 0) && (
+        <div className="absolute w-full mt-1 bg-background border rounded-md shadow-md">
+          {searchValue && filteredSuggestions.length > 0 && (
+            <div className="p-1">
+              {filteredSuggestions.map((book) => (
+                <button
+                  key={book.slug.current}
+                  onClick={() => handleSuggestionClick(book.name)}
+                  className="w-full text-left px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm flex items-center gap-2"
+                >
+                  <Book className="w-4 h-4" />
+                  {book.name}
+                </button>
+              ))}
+            </div>
+          )}
+          
+          {recentSearches.length > 0 && (
+            <div className="p-1 border-t">
+              <div className="text-xs text-muted-foreground px-2 py-1.5">Recent</div>
+              {recentSearches.slice(0, 3).map((search: string, index: number) => (
+                <button
+                  key={index}
+                  onClick={() => handleSuggestionClick(search)}
+                  className="w-full text-left px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm flex items-center gap-2"
+                >
+                  <Clock className="w-4 h-4" />
+                  {search}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default function Navbar() {
   return (
     <header className="bg-[#252231] w-full shadow-sm bg-background/50 sticky top-0 backdrop-blur z-10 border-b">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
@@ -117,56 +174,10 @@ export default function Navbar() {
               {link}
             </Link>
           ))}
-          <div className="hidden lg:block w-64 relative" ref={searchRef}>
-            <form onSubmit={handleSearch}>
-              <Input
-                name="search"
-                placeholder="Search books..."
-                value={searchValue}
-                onChange={(e) => {
-                  setSearchValue(e.target.value)
-                  setShowSuggestions(true)
-                }}
-                onFocus={() => setShowSuggestions(true)}
-                className="h-9 bg-background"
-              />
-            </form>
-            
-            {/* Suggestions Dropdown */}
-            {showSuggestions && (searchValue || recentSearches.length > 0) && (
-              <div className="absolute w-full mt-1 bg-background border rounded-md shadow-md">
-                {searchValue && filteredSuggestions.length > 0 && (
-                  <div className="p-1">
-                    {filteredSuggestions.map((book) => (
-                      <button
-                        key={book.slug.current}
-                        onClick={() => handleSuggestionClick(book.name)}
-                        className="w-full text-left px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm flex items-center gap-2"
-                      >
-                        <Book className="w-4 h-4" />
-                        {book.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-                
-                {recentSearches.length > 0 && (
-                  <div className="p-1 border-t">
-                    <div className="text-xs text-muted-foreground px-2 py-1.5">Recent</div>
-                    {recentSearches.slice(0, 3).map((search, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleSuggestionClick(search)}
-                        className="w-full text-left px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm flex items-center gap-2"
-                      >
-                        <Clock className="w-4 h-4" />
-                        {search}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
+          <div className="hidden lg:block w-64">
+            <Suspense fallback={<Input placeholder="Loading..." disabled />}>
+              <SearchBar />
+            </Suspense>
           </div>
         </nav>
 
@@ -192,56 +203,10 @@ export default function Navbar() {
                     {link}
                   </Link>
                 ))}
-                <div className="relative mt-4" ref={searchRef}>
-                  <form onSubmit={handleSearch}>
-                    <Input
-                      name="search"
-                      placeholder="Search books..."
-                      value={searchValue}
-                      onChange={(e) => {
-                        setSearchValue(e.target.value)
-                        setShowSuggestions(true)
-                      }}
-                      onFocus={() => setShowSuggestions(true)}
-                      className="h-9 bg-background"
-                    />
-                  </form>
-                  
-                  {/* Mobile Suggestions Dropdown */}
-                  {showSuggestions && (searchValue || recentSearches.length > 0) && (
-                    <div className="absolute w-full mt-1 bg-background border rounded-md shadow-md">
-                      {searchValue && filteredSuggestions.length > 0 && (
-                        <div className="p-1">
-                          {filteredSuggestions.map((book) => (
-                            <button
-                              key={book.slug.current}
-                              onClick={() => handleSuggestionClick(book.name)}
-                              className="w-full text-left px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm flex items-center gap-2"
-                            >
-                              <Book className="w-4 h-4" />
-                              {book.name}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                      
-                      {recentSearches.length > 0 && (
-                        <div className="p-1 border-t">
-                          <div className="text-xs text-muted-foreground px-2 py-1.5">Recent</div>
-                          {recentSearches.slice(0, 3).map((search: string, index: number) => (
-                            <button
-                              key={index}
-                              onClick={() => handleSuggestionClick(search)}
-                              className="w-full text-left px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm flex items-center gap-2"
-                            >
-                              <Clock className="w-4 h-4" />
-                              {search}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                <div className="mt-4">
+                  <Suspense fallback={<Input placeholder="Loading..." disabled />}>
+                    <SearchBar />
+                  </Suspense>
                 </div>
               </div>
             </SheetContent>
