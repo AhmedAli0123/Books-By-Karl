@@ -36,7 +36,6 @@ const HeroCarousel = () => {
             >
               <div className="relative w-full h-[200px]  md:h-[400px] lg:h-[500px]">
                 <Image
-                
                   src={src}
                   alt={`Banner ${index + 1}`}
                   fill

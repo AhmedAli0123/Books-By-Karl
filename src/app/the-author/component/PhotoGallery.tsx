@@ -68,6 +68,7 @@ export default function AuthorGallery() {
                     width={300}
                     height={200}
                     className="object-fill w-full h-52"
+                    loading='lazy'
                   />
                 </CardContent>
               </Card>

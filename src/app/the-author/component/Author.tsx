@@ -26,6 +26,7 @@ export default function AuthorSection() {
             width={275}
             height={412}
             className="rounded-xl shadow-md object-cover"
+            loading="lazy"
           />
         </div>
       </div>
