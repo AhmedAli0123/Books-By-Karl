@@ -8,7 +8,6 @@ import { groq } from "next-sanity";
 import { Book } from "@/type/Book";
 import Swal from 'sweetalert2';
 import imageUrlBuilder from '@sanity/image-url';
-import BookForm from '@/components/admin/BookForm';
 import BookList from '@/components/admin/BookList';
 
 const builder = imageUrlBuilder(client);
@@ -20,8 +19,7 @@ function urlFor(source: any) {
 export default function AdminPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -38,34 +36,52 @@ export default function AdminPage() {
   }
 
   const handleEdit = (book: Book) => {
-    setSelectedBook(book);
-    setIsEditing(true);
-  };
-
-  const handleCancel = () => {
-    setSelectedBook(null);
-    setIsEditing(false);
+    router.push(`/admin/books/edit/${book._id}`);
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-4">
-            {isEditing ? 'Edit Book' : 'Add New Book'}
-          </h2>
-          <BookForm 
-            isEditing={isEditing}
-            book={selectedBook}
-            onCancel={handleCancel}
-          />
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex justify-between items-center mb-10">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 tracking-tight">Admin Dashboard</h1>
+            <p className="mt-3 text-base text-gray-600">Manage your books and content efficiently</p>
+          </div>
+          <button
+            onClick={() => router.push('/admin/books/add')}
+            className="px-6 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+          >
+            Add New Book
+          </button>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-4">Manage Books</h2>
-          <BookList onEdit={handleEdit} />
+        <div className="mb-6">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search books by title, author, or ISBN..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-3 pl-12 text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            />
+            <svg
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-2xl shadow-xl p-8 transition-all duration-300">
+          <BookList onEdit={handleEdit} searchQuery={searchQuery} />
         </div>
       </div>
     </div>

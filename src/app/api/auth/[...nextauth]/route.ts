@@ -12,7 +12,7 @@ const handler = NextAuth({
       async authorize(credentials) {
         // Add your authentication logic here
         // This is a simple example - you should implement proper authentication
-        if (credentials?.username === "admin" && credentials?.password === "admin123") {
+        if (credentials?.username === "info@books.com" && credentials?.password === "Books@Admin123!") {
           return {
             id: "1",
             name: "Admin",

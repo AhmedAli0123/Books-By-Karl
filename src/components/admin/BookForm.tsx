@@ -8,6 +8,13 @@ import Swal from 'sweetalert2';
 import Image from 'next/image';
 import { portableTextToText } from '@/lib/portableTextToText';
 import imageUrlBuilder from '@sanity/image-url';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 const builder = imageUrlBuilder(client);
 
@@ -212,41 +219,18 @@ export default function BookForm({ isEditing, book, onCancel }: BookFormProps) {
       Swal.fire({
         title: 'Success!',
         text: `Book ${isEditing ? 'updated' : 'created'} successfully.`,
-        icon: 'success'
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        router.push('/admin');
       });
-
-      router.refresh();
-      if (!isEditing) {
-        setFormData({
-          name: '',
-          author: '',
-          authors: [],
-          description: '',
-          publishedDate: '',
-          formatsAvailable: [],
-          bookLink: '',
-          slug: '',
-          readSample: {
-            chapter: '',
-            title: '',
-            years: '',
-            content: ''
-          },
-          sample: {
-            chapter: '',
-            title: '',
-            content: ''
-          }
-        });
-        setImageFile(null);
-        setPreviewUrl('');
-      }
     } catch (error) {
       console.error('Error saving book:', error);
       Swal.fire({
         title: 'Error!',
         text: 'Failed to save book. Please try again.',
-        icon: 'error'
+        icon: 'error',
+        confirmButtonText: 'OK'
       });
     } finally {
       setIsLoading(false);
@@ -262,256 +246,241 @@ export default function BookForm({ isEditing, book, onCancel }: BookFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Book Title
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card>
+          <CardContent className="pt-6 space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="name">Book Title</Label>
+              <Input
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+                placeholder="Enter book title"
+              />
+            </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Slug
-          </label>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              name="slug"
-              value={formData.slug}
-              onChange={handleInputChange}
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="book-title"
-            />
-            <button
-              type="button"
-              onClick={generateSlug}
-              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
-            >
-              Generate
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Author
-          </label>
-          <input
-            type="text"
-            name="author"
-            value={formData.author}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Published Date
-          </label>
-          <input
-            type="date"
-            name="publishedDate"
-            value={formData.publishedDate}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Book Link
-          </label>
-          <input
-            type="url"
-            name="bookLink"
-            value={formData.bookLink}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Description
-          </label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleInputChange}
-            required
-            rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Formats Available
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {['Ebook', 'Paperback', 'Hardcover'].map((format) => (
-              <label key={format} className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  checked={formData.formatsAvailable.includes(format)}
-                  onChange={() => handleFormatChange(format)}
-                  className="form-checkbox h-4 w-4 text-blue-600"
+            <div className="space-y-2">
+              <Label htmlFor="slug">Slug</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="slug"
+                  name="slug"
+                  value={formData.slug}
+                  onChange={handleInputChange}
+                  placeholder="book-title"
                 />
-                <span className="ml-2 text-gray-700">{format}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Book Cover Image
-          </label>
-          <div className="mt-1 flex items-center space-x-4">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-            />
-            {previewUrl && (
-              <div className="relative w-24 h-32">
-                <Image
-                  src={previewUrl}
-                  alt="Book cover preview"
-                  fill
-                  className="object-cover rounded-md"
-                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={generateSlug}
+                >
+                  Generate
+                </Button>
               </div>
-            )}
-          </div>
-        </div>
+            </div>
 
-        <div className="md:col-span-2 border-t pt-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Read Sample</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Chapter
-              </label>
-              <input
-                type="text"
+            <div className="space-y-2">
+              <Label htmlFor="author">Author</Label>
+              <Input
+                id="author"
+                name="author"
+                value={formData.author}
+                onChange={handleInputChange}
+                required
+                placeholder="Enter author name"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="publishedDate">Published Date</Label>
+              <Input
+                id="publishedDate"
+                type="date"
+                name="publishedDate"
+                value={formData.publishedDate}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="bookLink">Book Link</Label>
+              <Input
+                id="bookLink"
+                type="url"
+                name="bookLink"
+                value={formData.bookLink}
+                onChange={handleInputChange}
+                required
+                placeholder="https://example.com/book"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="pt-6 space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                required
+                placeholder="Enter book description"
+                className="min-h-[120px]"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Formats Available</Label>
+              <div className="flex flex-wrap gap-4">
+                {['Ebook', 'Paperback', 'Hardcover'].map((format) => (
+                  <div key={format} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={format}
+                      checked={formData.formatsAvailable.includes(format)}
+                      onCheckedChange={() => handleFormatChange(format)}
+                    />
+                    <Label htmlFor={format}>{format}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Book Cover Image</Label>
+              <div className="flex items-center space-x-4">
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                />
+                {previewUrl && (
+                  <div className="relative w-24 h-32 rounded-lg overflow-hidden border">
+                    <Image
+                      src={previewUrl}
+                      alt="Book cover preview"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Separator />
+
+      <Card>
+        <CardContent className="pt-6">
+          <h3 className="text-lg font-medium mb-6">Read Sample</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="readSample.chapter">Chapter</Label>
+              <Input
+                id="readSample.chapter"
                 name="readSample.chapter"
                 value={formData.readSample.chapter}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter chapter number"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Title
-              </label>
-              <input
-                type="text"
+            <div className="space-y-2">
+              <Label htmlFor="readSample.title">Title</Label>
+              <Input
+                id="readSample.title"
                 name="readSample.title"
                 value={formData.readSample.title}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter chapter title"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Years
-              </label>
-              <input
-                type="text"
+            <div className="space-y-2">
+              <Label htmlFor="readSample.years">Years</Label>
+              <Input
+                id="readSample.years"
                 name="readSample.years"
                 value={formData.readSample.years}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter years"
               />
             </div>
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Content
-              </label>
-              <textarea
+            <div className="md:col-span-2 space-y-2">
+              <Label htmlFor="readSample.content">Content</Label>
+              <Textarea
+                id="readSample.content"
                 name="readSample.content"
                 value={formData.readSample.content}
                 onChange={handleInputChange}
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter sample content"
+                className="min-h-[120px]"
               />
             </div>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        <div className="md:col-span-2 border-t pt-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Sample</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Chapter
-              </label>
-              <input
-                type="text"
+      <Card>
+        <CardContent className="pt-6">
+          <h3 className="text-lg font-medium mb-6">Sample</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="sample.chapter">Chapter</Label>
+              <Input
+                id="sample.chapter"
                 name="sample.chapter"
                 value={formData.sample.chapter}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter chapter number"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Title
-              </label>
-              <input
-                type="text"
+            <div className="space-y-2">
+              <Label htmlFor="sample.title">Title</Label>
+              <Input
+                id="sample.title"
                 name="sample.title"
                 value={formData.sample.title}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter chapter title"
               />
             </div>
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Content
-              </label>
-              <textarea
+            <div className="md:col-span-2 space-y-2">
+              <Label htmlFor="sample.content">Content</Label>
+              <Textarea
+                id="sample.content"
                 name="sample.content"
                 value={formData.sample.content}
                 onChange={handleInputChange}
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter sample content"
+                className="min-h-[120px]"
               />
             </div>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
       <div className="flex justify-end space-x-4">
-        <button
+        <Button
           type="button"
+          variant="outline"
           onClick={onCancel}
-          className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
         >
           Cancel
-        </button>
-        <button
+        </Button>
+        <Button
           type="submit"
           disabled={isLoading}
-          className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? 'Saving...' : isEditing ? 'Update Book' : 'Add Book'}
-        </button>
+        </Button>
       </div>
     </form>
   );
