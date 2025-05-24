@@ -7,10 +7,10 @@ import PhotoGallery from './component/PhotoGallery'
 function page() {
   return (
     <>
-    <div className='bg-[#252231]'>
+    <div>
         <AuthorSection />
         <PressBiograghpy />
-        <div className='bg-[#252231] py-10'>
+        <div className=' py-10'>
         <PhotoGallery />
         </div>
         </div>

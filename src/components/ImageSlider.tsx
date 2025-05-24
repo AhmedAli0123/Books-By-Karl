@@ -49,8 +49,8 @@ const HeroCarousel = () => {
         </CarouselContent>
 
         {/* Navigation Buttons */}
-        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
-        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
+        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 " />
+        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 " />
       </Carousel>
     </div>
   )

@@ -9,6 +9,7 @@ import { useState, useEffect, useRef, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { client } from "@/sanity/lib/client"
 import { groq } from "next-sanity"
+import Image from "next/image"
 
 const links = [
   "Books",
@@ -158,10 +159,28 @@ export default function Navbar() {
     <header className="bg-[#252231] w-full shadow-sm bg-background/50 sticky top-0 backdrop-blur z-10 border-b">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
-        <Link href="/" className="font-bold tracking-tight">
-          <h1 className="text-lg md:text-3xl font-greatvibes">Books By </h1>
-          <h1 className="text-center text-lg md:text-4xl font-greatvibes">Karl</h1>
-        </Link>
+        <Link href="/" className="hidden md:flex items-center">
+  <Image 
+    src="/logo.png" 
+    alt="Books By Karl" 
+    width={120}  // Adjust for navbar height
+    height={50}
+    className=" md:w-auto object-contain rounded-full" 
+    priority
+  />
+</Link>
+
+<Link href="/" className="md:hidden flex items-center">
+  <Image 
+    src="/logo.png" 
+    alt="Books By Karl" 
+    width={120}  // Adjust for navbar height
+    height={50}
+    className="h-12 w-auto object-contain rounded-full" 
+    priority
+  />
+</Link>
+
 
         {/* Desktop Links */}
         <nav className="hidden lg:flex items-center gap-2">
@@ -169,9 +188,9 @@ export default function Navbar() {
             <Link
               key={link}
               href={`/${link.toLowerCase().replace(/\s+/g, '-')}`}
-              className="text-base font-semibold text-gray-700 hover:text-white hover:bg-red-500 px-2 py-2 rounded-md transition-all duration-200"
+              className="text-base font-semibold text-gray-700 hover:text-white hover:bg-[url('/navbar-item-background.png')] hover:bg-cover hover:bg-center hover:filter hover:sepia(100%) hover:hue-rotate(20deg) hover:saturate(300%) px-2 py-2 rounded-md transition-all duration-200"
             >
-              {link}
+              {link} 
             </Link>
           ))}
           <div className="hidden lg:block w-64">
@@ -198,7 +217,7 @@ export default function Navbar() {
                   <Link
                     key={link}
                     href={`/${link.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="text-base font-semibold text-gray-700 hover:text-white hover:bg-red-500 px-4 py-2 rounded-full transition-all duration-200"
+                    className="text-base font-semibold text-gray-700 hover:text-white bg-[#DE3E16] hover:bg-[url('/navbar-item-background.png')] hover:bg-cover hover:bg-center hover:filter hover:sepia(100%) hover:hue-rotate(20deg) hover:saturate(300%) px-4 py-2 rounded-full transition-all duration-200"
                   >
                     {link}
                   </Link>

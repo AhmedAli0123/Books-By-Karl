@@ -34,8 +34,8 @@ export default function AuthorGallery() {
   };
 
   return (
-    <section className="py-10 px-4 md:mx-[135px] md:px-10 bg-black relative overflow-hidden rounded-md ">
-      <h2 className="text-3xl font-bold text-left mb-8 text-white">Author Gallery</h2>
+    <section className="py-10 px-4 md:mx-[135px] md:px-10  relative overflow-hidden rounded-md ">
+      <h2 className="text-3xl font-bold text-left mb-8 text-black">Author Gallery</h2>
 
       <div className="relative max-w-4xl mx-auto">
         <Button
@@ -59,15 +59,15 @@ export default function AuthorGallery() {
             {authorImages.map((image, index) => (
               <Card
                 key={index}
-                className="min-w-[250px] mx-2 flex-shrink-0 shadow-lg border-black rounded-md"
+                className="min-w-[250px] mx-2 flex-shrink-0 shadow-lg rounded-md"
               >
                 <CardContent className="p-0">
                   <Image
                     src={image.src}
                     alt={image.alt}
-                    width={300}
-                    height={200}
-                    className="object-fill w-full h-52"
+                    width={150}
+                    height={300}
+                    className="object-cover w-full h-52"
                     loading='lazy'
                   />
                 </CardContent>

@@ -8,7 +8,7 @@ import BookSection from '@/components/BookSection'
 function page() {
   return (
     <>
-    <section className='bg-[#252231]'>
+    <section className='bg-slate-100'>
       <HeroCarousel />
       <BookSection />
       <ContactPage />

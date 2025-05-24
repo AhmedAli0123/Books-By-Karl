@@ -21,6 +21,8 @@ import {
 import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+import imageUrlBuilder from "@sanity/image-url";
 
 // Sanity query to fetch books
 const booksQuery = groq`*[_type == "book"] | order(name asc) {
@@ -33,11 +35,17 @@ const booksQuery = groq`*[_type == "book"] | order(name asc) {
   image
 }`;
 
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: any) {
+  return builder.image(source);
+}
+
 function BooksTableContent() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('search') || '';
   
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'date-asc' | 'date-desc'>('asc');
   const [books, setBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -66,13 +74,20 @@ function BooksTableContent() {
       )
     )
     .sort((a, b) => {
-      return sortOrder === "asc"
-        ? a.name.localeCompare(b.name)
-        : b.name.localeCompare(a.name);
+      if (sortOrder === "asc") {
+        return a.name.localeCompare(b.name);
+      } else if (sortOrder === "desc") {
+        return b.name.localeCompare(a.name);
+      } else if (sortOrder === "date-asc") {
+        return new Date(a.publishedDate).getTime() - new Date(b.publishedDate).getTime();
+      } else {
+        // date-desc
+        return new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime();
+      }
     });
 
   const handleSortChange = (value: string) => {
-    setSortOrder(value as "asc" | "desc");
+    setSortOrder(value as "asc" | "desc" | "date-asc" | "date-desc");
   };
 
   return (
@@ -80,9 +95,9 @@ function BooksTableContent() {
       className="min-h-screen bg-cover bg-fixed bg-center py-10 px-4 sm:px-6 lg:px-8"
       style={{ backgroundImage: "url('/forest-bg.jpg')" }}
     >
-      <div className="backdrop-blur-sm bg-[#1f2e22cc] rounded-xl shadow-2xl max-w-6xl mx-auto p-6">
+      <div className="backdrop-blur-sm  rounded-xl shadow-2xl max-w-6xl mx-auto p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-          <h2 className="text-3xl font-bold text-[#e0f3df] tracking-wide drop-shadow-lg">
+          <h2 className="text-3xl font-bold text-black tracking-wide drop-shadow-lg">
             🌿 Books Library
           </h2>
           <div className="flex items-center gap-4 mt-4 sm:mt-0">
@@ -93,11 +108,15 @@ function BooksTableContent() {
             )}
             <Select value={sortOrder} onValueChange={handleSortChange}>
               <SelectTrigger className="w-44 bg-[#2d4635] text-[#d3e9d1] border-[#4a6f5b] hover:bg-[#365746] transition">
-                <SelectValue placeholder="Sort by" />
+                <SelectValue placeholder={
+                  sortOrder.startsWith('date') ? 'Sort by: Date' : 'Sort by: Title'
+                } />
               </SelectTrigger>
               <SelectContent className="bg-[#2d4635] text-[#d3e9d1] border-[#4a6f5b]">
-                <SelectItem value="asc">A to Z</SelectItem>
-                <SelectItem value="desc">Z to A</SelectItem>
+                <SelectItem value="asc">Title (A to Z)</SelectItem>
+                <SelectItem value="desc">Title (Z to A)</SelectItem>
+                <SelectItem value="date-asc">Published Date (Oldest)</SelectItem>
+                <SelectItem value="date-desc">Published Date (Newest)</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -112,34 +131,25 @@ function BooksTableContent() {
             No books found matching your search.
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-[#3c604c] shadow-lg">
-            <Table>
-              <TableHeader className="bg-[#2b4c39]">
-                <TableRow>
-                  <TableHead className="text-[#e0f3df] text-base font-semibold w-[40%]">Title</TableHead>
-                  <TableHead className="text-[#e0f3df] text-base font-semibold">Formats</TableHead>
-                  <TableHead className="text-[#e0f3df] text-base font-semibold">Published</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody className="bg-[#253e2f]">
-                {filteredAndSortedBooks.map((book: Book) => (
-                  <TableRow
-                    key={book._id}
-                    className="hover:bg-[#355d46] transition duration-300"
-                  >
-                    <TableCell className="text-[#cbe8c7] font-medium">
-                      <Link href={`/books/${book.slug.current}`} className="hover:underline">
-                        {book.name}
-                      </Link>
-                    </TableCell>
-                    <TableCell className="text-[#b4dcbc]">{book.formatsAvailable.join(", ")}</TableCell>
-                    <TableCell className="text-[#a0c9a4]">
-                      {new Date(book.publishedDate).toLocaleDateString()}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredAndSortedBooks.map((book: Book) => (
+              <Link key={book._id} href={`/books/${book.slug.current}`}>
+                <div className="rounded-lg shadow-md p-6 h-full flex flex-col justify-between items-center hover:shadow-xl transition duration-300">
+                {book.image && (
+                      <Image src={urlFor(book.image).url()} alt={`Cover of ${book.name}`} className=" object-cover rounded-md mb-4" width={138} height={207} />
+                    )}
+                  <div>
+                    <h3 className="text-[16px] font-semibold text-[#e0f3df] mb-2">{book.name}</h3>
+                    
+                    <p className="text-[#b4dcbc] text-sm mb-2">Formats: {book.formatsAvailable.join(", ")}</p>
+                    <p className="text-[#a0c9a4] text-sm mb-2">Published: {new Date(book.publishedDate).toLocaleDateString()}</p>
+                    {book.author && (
+                      <p className="text-[#a0c9a4] text-sm">Author: {book.author}</p>
+                    )}
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         )}
       </div>

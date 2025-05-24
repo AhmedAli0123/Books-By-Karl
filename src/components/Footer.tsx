@@ -6,14 +6,11 @@ function Footer() {
   return (
     
 
-<footer className="bg-[#141316] border-t border-black">
+<footer className=" border-t border-black">
     <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
-              <Link href="" className="flex items-center">
-                  {/* <Image src="" className="h-8 me-3" alt=" Logo" /> */}
-                  <span className="self-center font-serif text-2xl font-semibold whitespace-nowrap text-gray-200">BOOKS BY <br /><span className='text-center'>KARL</span></span>
-              </Link>
+              
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div className="text-gray-500 dark:text-gray-400 font-medium">
@@ -34,15 +31,9 @@ function Footer() {
 
               <div className="text-gray-500 dark:text-gray-400 font-medium">
                   <Link href={"/news"} className="mb-4">Newsletter                  </Link>
-                  <ul >
-                      <li className="my-4">
-                          <Link href="/" className="hover:underline ">Miscellaneous</Link>
-                      </li>
-                      <li className='mb-4'>
-                          <Link href="" className="hover:underline">The Dark Tower</Link>
-                      </li>
+                  <ul className='my-4'>
                       <li>
-                          <Link href="/book" className="hover:underline">All Works</Link>
+                          <Link href="/book" className="hover:underline ">All Works</Link>
                       </li>
                   </ul>
               </div>
@@ -53,10 +44,7 @@ function Footer() {
                   <Link href={"/books"} className='mb-4'>Upcomming</Link>
                   <ul >
                       <li className="my-4">
-                          <Link href="#" className="hover:underline">New Releases</Link>
-                      </li>
-                      <li>
-                          <Link href="#" className="hover:underline">Dollar Babies</Link>
+                          <Link href="/news" className="hover:underline">New Releases</Link>
                       </li>
                   </ul>
               </div>
